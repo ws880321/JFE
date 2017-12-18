@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const packageInfo = require('./package.json');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const version = packageInfo.version;
 
 module.exports = {
@@ -36,8 +37,16 @@ module.exports = {
     },
     devtool: 'source-map',
     plugins: [
-        new webpack.BannerPlugin(`art-template@${version} for browser | https://github.com/aui/art-template`),
+        new webpack.BannerPlugin(`JFE.js@${version} for browser | https://github.com/ws880321/JFE.git`),
         new webpack.optimize.ModuleConcatenationPlugin(),
+        new CleanWebpackPlugin(
+            ['dist/*.*'],　 //匹配删除的文件
+            {
+                root: __dirname,       　　　　　　　　　　//根目录
+                verbose:  true,        　　　　　　　　　　//开启在控制台输出信息
+                dry:      false        　　　　　　　　　　//启用删除文件
+            }
+        ),
         process.env.NODE_ENV === 'production' ? new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false,

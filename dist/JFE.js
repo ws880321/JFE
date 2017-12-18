@@ -1,4 +1,4 @@
-/*! art-template@1.0.0 for browser | https://github.com/aui/art-template */
+/*! JFE.js@1.0.0 for browser | https://github.com/ws880321/JFE.git */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
