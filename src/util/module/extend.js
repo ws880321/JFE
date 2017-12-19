@@ -1,22 +1,34 @@
 
 /**
- * 将两个或更多对象的内容合并到第一个对象.
- * @param {string} options - The first color, in hexidecimal format.
- * @return {object} Return the modified object  
- * @example
- * var object1 = {
- *   apple: 0,
- *   banana: { weight: 52, price: 100 },
- *   cherry: 97
- * };
- * var object2 = {
- *   banana: { price: 200 },
- *   durian: 100
- * };
- * // Merge object2 into object1
- * _.extend( object1, object2 );
+ * @namespace 
  */
 
+
+import isFunction from '../tooljs/is-function.js'
+import isArray from '../tooljs/is-array.js'
+import isObject from '../tooljs/is-object.js'
+
+
+/** 
+* 将两个或更多对象的内容合并到第一个对象。
+* @memberof  util 
+* @param { Boolean } deep 如果是 true，合并成为递归（又叫做深拷贝）。不支持给这个参数传递 false
+* @param { Object } target 对象扩展。这将接收新的属性。
+* @param { Object } object1 一个对象，它包含额外的属性合并到第一个参数.
+* @param { Object } objectN 包含额外的属性合并到第一个参数
+ * @example
+ *  var object1 = {
+ *      apple: 0,
+ *      banana: { weight: 52, price: 100 },
+ *      cherry: 97
+ *  };
+ *  var object2 = {
+ *      banana: { price: 200 },
+ *      durian: 100
+ *  };
+ *  // Merge object2 into object1
+ *  JFE.util.extend( object1, object2 );
+ */
 
 function extend() {  
     var options, name, src, copy, copyIsArray, clone,  
@@ -34,7 +46,7 @@ function extend() {
     }  
   
     // Handle case when target is a string or something (possible in deep copy)  
-    if ( typeof target !== "object" && !jQuery.isFunction(target) ) {  
+    if ( typeof target !== "object" && isFunction(target) ) {  
         target = {};  
     }  
   
@@ -58,17 +70,17 @@ function extend() {
                 }  
   
                 // Recurse if we're merging plain objects or arrays  
-                if ( deep && copy && ( jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)) ) ) {  
+                if ( deep && copy && ( isObject(copy) || (copyIsArray = isArray(copy)) ) ) {  
                     if ( copyIsArray ) {  
                         copyIsArray = false;  
-                        clone = src && jQuery.isArray(src) ? src : [];  
+                        clone = src && isArray(src) ? src : [];  
   
                     } else {  
-                        clone = src && jQuery.isPlainObject(src) ? src : {};  
+                        clone = src && isObject(src) ? src : {};  
                     }  
   
                     // Never move original objects, clone them  
-                    target[ name ] = jQuery.extend( deep, clone, copy );  
+                    target[ name ] = extend( deep, clone, copy );  
   
                 // Don't bring in undefined values  
                 } else if ( copy !== undefined ) {  
@@ -84,4 +96,4 @@ function extend() {
 
 
 
-export default extend;
+export {extend} ;

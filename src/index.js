@@ -1,8 +1,7 @@
-import render from './components/render.js'
-import extend from './components/extend.js'
 
 
-module.exports = {
-	extend,
-	render
-};
+import * as util from './util/index.js';
+import * as chart  from './chart/index.js';
+import * as visual  from './visual/index.js';
+
+export {util,chart,visual}

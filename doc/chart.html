@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Tutorial: TUI Editor | 九次方插件库</title>
+    <title>Namespace: chart | 九次方插件库</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -45,108 +45,92 @@
 <div class="main" id="main">
     
 
+
+
+
 <section>
-    <header>
-        
 
-        <h2>TUI Editor</h2>
-    </header>
-
+<header>
     
+        <h2>chart</h2>
         
+    
+</header>
 
-        <ul id="example-nav" class="nav nav-tabs">
-            <li role="presentation" id="example-result-btn" class="active" onclick="showResult()">
-                <a href="#">Result</a>
-            </li>
-            <li role="presentation" id="example-js-btn" class="" onclick="showJs()">
-                <a href="#">JS</a>
-            </li>
-            <li role="presentation" id="example-html-btn" class="" onclick="showHtml()">
-                <a href="#">HTML</a>
-            </li>
-        </ul>
-        <article>
+<article>
+    
+        <div class="container-overview">
+        
             
-            <iframe id="example-result" width="100%" height="800" frameborder="0" src=tutorials/editor.html></iframe>
-            <div id="example-js" class="hidden"><pre class="prettyprint source">
-    $('#editSection').tuiEditor({
-        initialEditType: 'markdown',
-        previewStyle: 'vertical',
-        height: 300,
-        exts: ['colorSyntax'],
-        contentCSSStyles: [
-            '../dist/tui-editor-contents.css'
-        ],
-        events: {
-            'load': function() {
-                console.log('editor Loaded');
-            }
-        }
-    });
-</pre></div>
-            <div id="example-html" class="hidden"><pre class="prettyprint source">
-    &lt;div id="editSection">&lt;/div>
-</pre></div>
-        </article>
+                <div class="description"><p>chart 是 JFE的图表库，提供了一些项目中常用图表。</p></div>
+            
+
+            
+
+
+<dl class="details">
+
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
 </section>
 
 
-    <script>
-        var exampleResult = document.getElementById('example-result');
-        var exampleJs = document.getElementById('example-js');
-        var exampleHtml = document.getElementById('example-html');
-        var exampleResultBtn = document.getElementById('example-result-btn');
-        var exampleJsBtn = document.getElementById('example-js-btn');
-        var exampleHtmlBtn = document.getElementById('example-html-btn');
-
-        function setActive(el) {
-            el.className += ' active';
-        }
-
-        function setInactive(el) {
-            el.className = el.className.replace(/\s*active\s*/g, '');
-        }
-
-        function show(el) {
-            el.className = el.className.replace(/\s*hidden\s*/g, '');
-        }
-
-        function hide(el) {
-            el.className += ' hidden';
-        }
-
-        function showJs() {
-            hide(exampleHtml);
-            hide(exampleResult);
-            setInactive(exampleHtmlBtn);
-            setInactive(exampleResultBtn);
-
-            show(exampleJs);
-            setActive(exampleJsBtn);
-        }
-
-        function showHtml() {
-            hide(exampleJs);
-            hide(exampleResult);
-            setInactive(exampleJsBtn);
-            setInactive(exampleResultBtn);
-
-            show(exampleHtml);
-            setActive(exampleHtmlBtn);
-        }
-
-        function showResult() {
-            hide(exampleJs);
-            hide(exampleHtml);
-            setInactive(exampleJsBtn);
-            setInactive(exampleHtmlBtn);
-
-            show(exampleResult);
-            setActive(exampleResultBtn);
-        }
-    </script>
 
 
 </div>
@@ -160,7 +144,13 @@
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        showLnbExamples();
+        var id = 'chart_sub'.replace(/"/g, '_');
+        var selectedApi = document.getElementById(id); // do not use jquery selector
+        var $selectedApi = $(selectedApi);
+
+        $selectedApi.removeClass('hidden');
+        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        showLnbApi();
     </script>
 
 </body>

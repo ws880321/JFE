@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: extend.js | 九次方插件库</title>
+    <title>Source: util/module/extend.js | 九次方插件库</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -40,7 +40,7 @@
             </li>
         </ol>
     
-    <div class="lnb-examples hidden"><h3>Examples</h3><ul><li><a href="tutorial-chart.html">TUI Chart</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="chart_sub"></div></li><li><a href="tutorial-editor.html">TUI Editor</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="editor_sub"></div></li><li><a href="tutorial-grid.html">TUI Grid</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="grid_sub"></div></li><li><a href="tutorial-image-editor.html">TUI Image Editor</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="image-editor_sub"></div></li><li><a href="tutorial-markdownTutorial.html">Markdown tutorial</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="markdownTutorial_sub"></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#extend">extend</a></li></ul></div>
+    <div class="lnb-examples hidden"><h3>Examples</h3><ul><li><a href="tutorial-chart_.html">TUI Chart</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="chart_sub"></div></li><li><a href="tutorial-editor.html">TUI Editor</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="editor_sub"></div></li><li><a href="tutorial-grid.html">TUI Grid</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="grid_sub"></div></li><li><a href="tutorial-image-editor.html">TUI Image Editor</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="image-editor_sub"></div></li><li><a href="tutorial-markdownTutorial.html">Markdown tutorial</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="markdownTutorial_sub"></div></li></ul></div><div class="lnb-api hidden"><h3>Namespaces</h3><ul><li><a href="chart.html">chart</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="chart_sub"></div></li><li><a href="util.html">util</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="util_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="util.html#.extend">extend</a></li><li><a href="util.html#.isArray">isArray</a></li></ul></div></li><li><a href="visual.html">visual</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="visual_sub"></div></li></ul></div>
 </nav>
 <div id="resizer"></div>
 
@@ -54,23 +54,35 @@
         <article>
             <pre class="prettyprint source linenums"><code>
 /**
- * 将两个或更多对象的内容合并到第一个对象.
- * @param {string} options - The first color, in hexidecimal format.
- * @return {object} Return the modified object  
- * @example
- * var object1 = {
- *   apple: 0,
- *   banana: { weight: 52, price: 100 },
- *   cherry: 97
- * };
- * var object2 = {
- *   banana: { price: 200 },
- *   durian: 100
- * };
- * // Merge object2 into object1
- * _.extend( object1, object2 );
+ * @namespace 
  */
 
+
+import isFunction from '../tooljs/is-function.js'
+import isArray from '../tooljs/is-array.js'
+import isObject from '../tooljs/is-object.js'
+
+
+/** 
+* 将两个或更多对象的内容合并到第一个对象。
+* @memberof  util 
+* @param { Boolean } deep 如果是 true，合并成为递归（又叫做深拷贝）。不支持给这个参数传递 false
+* @param { Object } target 对象扩展。这将接收新的属性。
+* @param { Object } object1 一个对象，它包含额外的属性合并到第一个参数.
+* @param { Object } objectN 包含额外的属性合并到第一个参数
+ * @example
+ *  var object1 = {
+ *      apple: 0,
+ *      banana: { weight: 52, price: 100 },
+ *      cherry: 97
+ *  };
+ *  var object2 = {
+ *      banana: { price: 200 },
+ *      durian: 100
+ *  };
+ *  // Merge object2 into object1
+ *  JFE.util.extend( object1, object2 );
+ */
 
 function extend() {  
     var options, name, src, copy, copyIsArray, clone,  
@@ -88,7 +100,7 @@ function extend() {
     }  
   
     // Handle case when target is a string or something (possible in deep copy)  
-    if ( typeof target !== "object" &amp;&amp; !jQuery.isFunction(target) ) {  
+    if ( typeof target !== "object" &amp;&amp; isFunction(target) ) {  
         target = {};  
     }  
   
@@ -112,17 +124,17 @@ function extend() {
                 }  
   
                 // Recurse if we're merging plain objects or arrays  
-                if ( deep &amp;&amp; copy &amp;&amp; ( jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)) ) ) {  
+                if ( deep &amp;&amp; copy &amp;&amp; ( isObject(copy) || (copyIsArray = isArray(copy)) ) ) {  
                     if ( copyIsArray ) {  
                         copyIsArray = false;  
-                        clone = src &amp;&amp; jQuery.isArray(src) ? src : [];  
+                        clone = src &amp;&amp; isArray(src) ? src : [];  
   
                     } else {  
-                        clone = src &amp;&amp; jQuery.isPlainObject(src) ? src : {};  
+                        clone = src &amp;&amp; isObject(src) ? src : {};  
                     }  
   
                     // Never move original objects, clone them  
-                    target[ name ] = jQuery.extend( deep, clone, copy );  
+                    target[ name ] = extend( deep, clone, copy );  
   
                 // Don't bring in undefined values  
                 } else if ( copy !== undefined ) {  
@@ -138,7 +150,7 @@ function extend() {
 
 
 
-export default extend;</code></pre>
+export {extend} ;</code></pre>
         </article>
     </section>
 
