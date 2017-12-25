@@ -5,6 +5,8 @@
  * @namespace util
  */
 
+export {isBrowser} from './weibin/isBrowser.js'
+export {formatTime} from './weibin/formatTime.js'
 export {extend} from './module/extend.js'
 
 

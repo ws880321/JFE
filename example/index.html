@@ -4,12 +4,13 @@
 	<title></title>
 </head>
 <body>
-<script type="text/javascript" src='../dist/jfe.js'></script>
+<div id='root'></div>
+<script type="text/javascript" src='../dist/util.js'></script>
 <script type="text/javascript">
-	console.log(JFE)
-	console.log(JFE.util)
-	console.log(JFE.chart)
-	console.log(JFE.visual)
+console.log(JFE.util.isBrowser())
+console.log(FE.util.formatTime(new Data().getTime()))
+
+	
 </script>
 </body>
 </html>

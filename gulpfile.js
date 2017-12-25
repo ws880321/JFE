@@ -9,7 +9,9 @@ var babel = require('rollup-plugin-babel');
 var babel = require('rollup-plugin-babel');
 var uglify2 = require('rollup-plugin-uglify');
 var rollup = require('rollup');
+var commonjs = require('rollup-plugin-commonjs');
 var minify = require('rollup-plugin-babel-minify');
+var resolve = require('rollup-plugin-node-resolve');
 var minimist = require('minimist');
 
 var knownOptions = {
@@ -76,7 +78,7 @@ var watchPaths = [
 /**
  * Reload server
  */
-gulp.task('reload', ['doc', 'build-sub'], function() {
+gulp.task('reload', ['doc'], function() {
     return gulp.src(watchPaths)
         .pipe(connect.reload())
 });
@@ -84,8 +86,8 @@ gulp.task('reload', ['doc', 'build-sub'], function() {
 /**
  * Regenerate demo document when a file changes
  */
-gulp.task('watch', ['doc', 'build-sub'], function() {
-    var watcher = gulp.watch(watchPaths, ['doc', 'build-sub', 'reload']);
+gulp.task('watch', ['doc'], function() {
+    var watcher = gulp.watch(watchPaths, ['doc', 'reload']);
     watcher.on('change', function(event) {
         console.log('File: ' + event.path + ' was ' + event.type + ', running tasks...');
     });
@@ -106,51 +108,8 @@ gulp.task('serve', ['connect', 'watch']);
 
 
 
-gulp.task('build', async function() {
-    const bundle = await rollup.rollup({
-        input: './src/index.js',
-        plugins: [
 
-            babel({
-                exclude: 'node_modules/**' // 只编译我们的源代码
-            }),
-            options.env==='dev'?{}:minify()
-        ]
-    });
-    await bundle.write({
-        file: './dist/jfe.js',
-        format: 'umd',
-        name: 'JFE',
-        intro:'/**九次方大数据前端工具库*/' ,
-        sourcemap: true
-    });
-});
 
-let filsList = [];
-gulp.task('build-sub', function() {
-    fs.readdir('./src/', function(err, files) {
-        files.map(async function(v, i) {
-            if (v != '.DS_Store' && v != 'common' && v != 'index.js') {
-                filsList[i] = await rollup.rollup({
-                    input: `./src/${v}/index.js`,
-                    plugins: [
-                        babel({
-                            exclude: 'node_modules/**' // 只编译我们的源代码
-                        }),
-                        options.env==='dev'?{}:minify()
-                    ]
-                });
-                await filsList[i].write({
-                    file: `./dist/${v}.js`,
-                    format: 'umd',
-                    intro:'/**九次方大数据前端工具库*/' ,
-                    name: `JFE.${v}`,
-                    sourcemap: true
-                });
-            }
-        })
-    })
-});
 
 
 

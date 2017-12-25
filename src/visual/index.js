@@ -1,9 +1,12 @@
+ 
 
 /**
- * visual 是 JFE的3d可视化库，提供了一些项目中常用3d效果。
- * @namespace visual
+ * chart 是 JFE的图表库，提供了一些项目中常用图表。
+ * @namespace chart
  */
 
+ import * as Map3D from './Map3D.js';
+ 
 
-const bbb=23412132123
-export {bbb}
+
+export {Map3D}

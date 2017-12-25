@@ -536,7 +536,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     conf.default = conf.default || {};
 
     var templatePath = path.normalize(opts.template);
-    view = new template.Template( path.join(templatePath, 'tmpl') );
+    view = new template.Template( path.join(templatePath, 'build/tmpl') );
 
     // claim some special filenames in advance, so the All-Powerful Overseer of Filename Uniqueness
     // doesn't try to hand them out later
@@ -602,7 +602,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     fs.mkPath(outdir);
 
     // copy the template's static files to outdir
-    var fromDir = path.join(templatePath, 'static');
+    var fromDir = path.join(templatePath, 'build/static');
     var staticFiles = fs.ls(fromDir, 3);
 
     staticFiles.forEach(function(fileName) {
