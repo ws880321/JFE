@@ -10,15 +10,13 @@ const eslint = require('rollup-plugin-eslint');
 const cleanup = require('rollup-plugin-cleanup');
 const uglify = require('rollup-plugin-babel-minify');
 const isDev = process.env.DEV === "dev";
-
-
-
+// see below for details on the options
 const inputOptions = {
    input:'./src/index.js',
     plugins: [
-      resolve(),
+      // resolve(),
       commonjs(),
-      eslint(),
+      // eslint(),
       babel({
           exclude: 'node_modules/**' , 
           runtimeHelpers: true 

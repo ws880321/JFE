@@ -70,6 +70,6 @@ var Detector = {
 
 };
 
-export default Detector
-// "undefined" != typeof module && module.exports && (module.exports = Detector);
+
+"undefined" != typeof module && module.exports && (module.exports = Detector);
 

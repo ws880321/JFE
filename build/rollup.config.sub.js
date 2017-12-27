@@ -22,6 +22,7 @@ fs.readdir('./src/', function(err, files) {
 					commonjs(),
 					eslint(),
 					babel({
+					  plugins: ['transform-class-properties'],
 					  exclude: 'node_modules/**' , 
 					  runtimeHelpers: true 
 					}),
@@ -41,6 +42,7 @@ fs.readdir('./src/', function(err, files) {
 				      commonjs(),
 				      eslint(),
 				      babel({
+					      plugins: ['transform-class-properties'],
 				          exclude: 'node_modules/**' , 
 				          runtimeHelpers: true 
 				        }),

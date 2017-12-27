@@ -2,6 +2,7 @@
  * Created by jusfoun-fe.github.io on 2017/12/05.
  * 3D文字
  */
+import * as THREE from './three.js'
 
 export default class Font3D{
   constructor(){
